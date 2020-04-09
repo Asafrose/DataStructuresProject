@@ -37,3 +37,4 @@
 *.tlog
 /src/DataStructuresProject/Debug/**/*
 /src/Debug/**/*
+*.DotSettings.user
