@@ -3,7 +3,6 @@
 #define ALLOCATINGLIST_H
 
 
-
 template <class TItem>
 class AllocatingList
 {
@@ -17,14 +16,11 @@ private:
 		TItem _data;
 		ListNode<TItem>* _next;
 		ListNode<TItem>* _prev;
-		friend  AllocatingList<TItem>;
+		friend AllocatingList<TItem>;
 
-		ListNode(TItem data) :_data(data), _next(nullptr), _prev(nullptr)
+		ListNode(TItem data) : _data(data), _next(nullptr), _prev(nullptr)
 		{
-
 		}
-
-
 	};
 
 	ListNode<TItem>* _head;
@@ -44,7 +40,7 @@ public:
 	void Add(TItem item)
 	{
 		ListNode<TItem>* new_node = new ListNode<TItem>(item);
-		if(_tail==nullptr)
+		if (_tail == nullptr)
 		{
 			_head = new_node;
 			_tail = new_node;
@@ -55,13 +51,12 @@ public:
 			_tail->_next = new_node;
 			_tail = new_node;
 		}
-		
 	}
 
 	void Remove()
 	{
 		ListNode<TItem>* temp = _tail;
-		if(_tail->_prev!=nullptr)
+		if (_tail->_prev != nullptr)
 		{
 			_tail->_prev->_next = nullptr;
 			_tail = _tail->_prev;
@@ -72,8 +67,8 @@ public:
 			_tail = nullptr;
 			_head = nullptr;
 		}
-		
-		
+
+
 		free(temp);
 	}
 

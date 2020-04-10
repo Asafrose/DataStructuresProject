@@ -147,9 +147,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NetworkInputHelper.cpp" />
+    <ClCompile Include="PeersFinder.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="RecursionTerminatorData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NetworkInputHelper.h" />
+    <ClInclude Include="PeersFinder.h" />
+    <ClInclude Include="RecursionTerminatorData.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticList.h" />
     <ClInclude Include="AlloctingList.h" />
   </ItemGroup>
