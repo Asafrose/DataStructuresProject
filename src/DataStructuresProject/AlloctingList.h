@@ -1,6 +1,7 @@
 #pragma once
 #ifndef ALLOCATINGLIST_H
 #define ALLOCATINGLIST_H
+#include <functional>
 
 
 template <class TItem>
@@ -77,7 +78,7 @@ public:
 		return _tail->_data;
 	}
 
-	void ForEach(void function(TItem item))
+	void ForEach(std::function<void(TItem)> function)
 	{
 		ListNode<TItem>* node = _head;
 		while (node != nullptr)
