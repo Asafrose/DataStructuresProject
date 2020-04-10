@@ -7,6 +7,6 @@ class PeersFinder
 {
 public:
 	static StaticList<int> FindPeersRecursive(int source, AllocatingList<int>* network, int computersCount);
-	static StaticList<int> FindPeersIterative();
+	static StaticList<int> FindPeersIterative(int source, AllocatingList<int>* network, int computersCount);
 };
 #endif // PEERSFINDER_H

@@ -39,6 +39,20 @@ public:
 		_nodes[_physicalSize - 1].Next = ListEnd;
 	}
 
+	StaticList(StaticList& other) :
+		_physicalSize(other._physicalSize),
+		_nodes(new ListNode[_physicalSize]),
+		_size(other._size),
+		_head(other._head),
+		_tail(other._tail),
+		_nextLocation(other._nextLocation)
+	{
+		for (int i = 0; i < _physicalSize; ++i)
+		{
+			_nodes[i] = other._nodes[i];
+		}
+	}
+
 	~StaticList()
 	{
 		delete[] _nodes;

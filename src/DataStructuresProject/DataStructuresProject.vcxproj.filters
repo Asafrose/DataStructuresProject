@@ -47,5 +47,8 @@
     <ClInclude Include="PeersFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RecurtionLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
