@@ -13,6 +13,13 @@ int main()
 	int source;
 	cout << "Please enter source computer: ";
 	cin >> source;
+	
+	if (source > size -1)
+	{
+		cout << "no such computer " << source;
+		exit(1);
+	}
+	
 	cout << "RECURSIVE: The computers that are accessible from computer " << source << " are:";
 	PeersFinder::FindPeersRecursive(source, network, size).ForEach([](int computer) { cout << " " << computer; });
 

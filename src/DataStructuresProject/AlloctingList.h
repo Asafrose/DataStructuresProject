@@ -1,4 +1,3 @@
-#pragma once
 #ifndef ALLOCATINGLIST_H
 #define ALLOCATINGLIST_H
 #include <functional>
@@ -8,15 +7,12 @@ template <class TItem>
 class AllocatingList
 {
 private:
-
-
-	template <class TItem>
 	class ListNode
 	{
 	private:
 		TItem _data;
-		ListNode<TItem>* _next;
-		ListNode<TItem>* _prev;
+		ListNode* _next;
+		ListNode* _prev;
 		friend AllocatingList<TItem>;
 
 		ListNode(TItem data) : _data(data), _next(nullptr), _prev(nullptr)
@@ -24,8 +20,8 @@ private:
 		}
 	};
 
-	ListNode<TItem>* _head;
-	ListNode<TItem>* _tail;
+	ListNode* _head;
+	ListNode* _tail;
 
 
 public:
@@ -40,7 +36,7 @@ public:
 
 	void Add(TItem item)
 	{
-		ListNode<TItem>* new_node = new ListNode<TItem>(item);
+		ListNode* new_node = new ListNode(item);
 		if (_tail == nullptr)
 		{
 			_head = new_node;
@@ -56,7 +52,7 @@ public:
 
 	void Remove()
 	{
-		ListNode<TItem>* temp = _tail;
+		ListNode* temp = _tail;
 		if (_tail->_prev != nullptr)
 		{
 			_tail->_prev->_next = nullptr;
@@ -69,8 +65,7 @@ public:
 			_head = nullptr;
 		}
 
-
-		free(temp);
+		delete temp;
 	}
 
 	TItem GetTail()
@@ -80,7 +75,7 @@ public:
 
 	void ForEach(std::function<void(TItem)> function)
 	{
-		ListNode<TItem>* node = _head;
+		ListNode* node = _head;
 		while (node != nullptr)
 		{
 			function(node->_data);
@@ -90,7 +85,7 @@ public:
 
 	void ReversedForEach(std::function<void(TItem)> function)
 	{
-		ListNode<TItem>* node = _tail;
+		ListNode* node = _tail;
 		while (node != nullptr)
 		{
 			function(node->_data);

@@ -15,9 +15,21 @@ AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 	for (int i = 0; i < connectionsCount; ++i)
 	{
 		int sourceComputer;
-		int destinationComputer;
+		int destinationComputer;		
 
 		cin >> sourceComputer >> destinationComputer;
+
+		if (sourceComputer > size - 1)
+		{
+			cout << "no such computer " << sourceComputer;
+			exit(1);
+		}
+		if (destinationComputer > size - 1)
+		{
+			cout << "no such computer " << destinationComputer;
+			exit(1);
+		}
+		
 		result[sourceComputer].Add(destinationComputer);
 	}
 
