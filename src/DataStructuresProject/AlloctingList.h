@@ -74,10 +74,7 @@ public:
 
 	TItem GetTail()
 	{
-		if (_tail != nullptr)
-		{
-			return _tail->_data;
-		}
+		return _tail->_data;
 	}
 
 	void ForEach(void function(TItem item))
