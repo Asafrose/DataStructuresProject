@@ -33,10 +33,10 @@ public:
 
 		for (int i = 0; i < _physicalSize - 1; ++i)
 		{
-			_nodes[i]._next = i + 1;
+			_nodes[i].Next = i + 1;
 		}
 
-		_nodes[_physicalSize - 1]._next = ListEnd;
+		_nodes[_physicalSize - 1].Next = ListEnd;
 	}
 
 	~StaticList()
@@ -46,13 +46,13 @@ public:
 
 	void Add(TItem item)
 	{
-		_nodes[_nextLocation]._data = item;
-		const int newNextLocation = _nodes[_nextLocation]._next;
-		_nodes[_nextLocation]._next = ListEnd;
+		_nodes[_nextLocation].Data = item;
+		const int newNextLocation = _nodes[_nextLocation].Next;
+		_nodes[_nextLocation].Next = ListEnd;
 
 		if (_tail != ListEnd)
 		{
-			_nodes[_tail]._next = _nextLocation;
+			_nodes[_tail].Next = _nextLocation;
 		}
 		if (_head == ListEnd)
 		{
@@ -68,8 +68,8 @@ public:
 		int current = _head;
 		while (current != ListEnd)
 		{
-			action(_nodes[current]._data);
-			current = _nodes[current]._next;
+			action(_nodes[current].Data);
+			current = _nodes[current].Next;
 		}
 	}
 };

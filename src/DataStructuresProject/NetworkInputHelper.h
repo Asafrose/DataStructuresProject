@@ -2,7 +2,7 @@
 #define NETWORKINPUTHELPER_H
 #include "AlloctingList.h"
 
-static class NetworkInputHelper
+class NetworkInputHelper
 {
 public:
 	static AllocatingList<int>* GetNetwork(int& size);
