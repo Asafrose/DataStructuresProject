@@ -38,3 +38,5 @@
 /src/DataStructuresProject/Debug/**/*
 /src/Debug/**/*
 *.DotSettings.user
+/src/x64/**/*
+/src/DataStructuresProject/x64/**/*
