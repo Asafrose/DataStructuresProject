@@ -18,6 +18,8 @@ int main()
 
 	cout << endl << "ITERATIVE: The computers that are accessible from computer " << source << " are:";
 	PeersFinder::FindPeersIterative(source, network, size).ForEach([](int computer) { cout << " " << computer; });
+
+    delete[] network;
 }
 
 /*

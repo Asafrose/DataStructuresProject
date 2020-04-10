@@ -58,7 +58,7 @@ StaticList<int> PeersFinder::FindPeersIterative(int source, AllocatingList<int>*
 				computerIdToIsVisitedMapping[current.GetSource()] = true;
 				stack.Push(RecursionTerminatorData(current.GetSource(), AfterRecursion));
 
-				network[current.GetSource()].ForEach(
+				network[current.GetSource()].ReversedForEach(
 					[&](int computer)
 					{
 						stack.Push(RecursionTerminatorData(computer, Start));

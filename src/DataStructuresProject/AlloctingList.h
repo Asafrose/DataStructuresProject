@@ -88,6 +88,16 @@ public:
 		}
 	}
 
+	void ReversedForEach(std::function<void(TItem)> function)
+	{
+		ListNode<TItem>* node = _tail;
+		while (node != nullptr)
+		{
+			function(node->_data);
+			node = node->_prev;
+		}
+	}
+
 	~AllocatingList()
 	{
 		while (!IsEmpty())
