@@ -25,7 +25,7 @@ private:
 
 public:
 	StaticList(int size) : _physicalSize(size), _nodes(new ListNode[_physicalSize])
-	{
+	{// Creates empty static list of size 'size' 
 		_size = 0;
 		_head = ListEnd;
 		_tail = ListEnd;

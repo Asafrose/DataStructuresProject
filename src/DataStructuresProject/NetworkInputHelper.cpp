@@ -6,20 +6,28 @@ using namespace std;
 
 AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 {
+	// function receives a prt to int, creates an array of allocating list , updates the prt value with Array size and returns the array.
+	// each item in the array holds the allocating list of connections with the corresponding computer as source
 	cin >> size;
-	if(size<1)
+	if (size < 1)
 	{
 		cout << "not valid size ";
+		exit(1);
 	}
 	size++;
 	AllocatingList<int>* result = new AllocatingList<int>[size];
 
 	int connectionsCount;
 	cin >> connectionsCount;
+	if(connectionsCount<0)
+	{
+		cout << "not valid connections amount ";
+		exit(1);
+	}
 	for (int i = 0; i < connectionsCount; ++i)
 	{
 		int sourceComputer;
-		int destinationComputer;		
+		int destinationComputer;
 
 		cin >> sourceComputer >> destinationComputer;
 
@@ -33,7 +41,7 @@ AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 			cout << "no such computer " << destinationComputer;
 			exit(1);
 		}
-		
+
 		result[sourceComputer].Add(destinationComputer);
 	}
 

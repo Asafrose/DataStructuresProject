@@ -6,9 +6,11 @@
 template <class TItem>
 class AllocatingList
 {
+	// Allocating list template 
 private:
 	class ListNode
 	{
+		//Private class for node 
 	private:
 		TItem _data;
 		ListNode* _next;
@@ -27,15 +29,18 @@ private:
 public:
 	AllocatingList() : _head(nullptr), _tail(nullptr)
 	{
+		//Ctr for new list
 	}
 
 	bool IsEmpty()
 	{
+		//returns 'true' if list is empty
 		return (_tail == nullptr);
 	}
 
 	void Add(TItem item)
 	{
+		//adds new item at the tail of the list and updates the tail
 		ListNode* new_node = new ListNode(item);
 		if (_tail == nullptr)
 		{
@@ -52,6 +57,7 @@ public:
 
 	void Remove()
 	{
+		//removes the tail item of the list and updates tail value
 		ListNode* temp = _tail;
 		if (_tail->_prev != nullptr)
 		{
@@ -70,11 +76,14 @@ public:
 
 	TItem GetTail()
 	{
+		// returns tail's data
 		return _tail->_data;
 	}
 
 	void ForEach(std::function<void(TItem)> function)
 	{
+		// function receives a function object, Objects needs to get same data type as the list and return void.
+		// function goes over all list nodes and runs the function each time with the node data
 		ListNode* node = _head;
 		while (node != nullptr)
 		{
@@ -84,7 +93,7 @@ public:
 	}
 
 	void ReversedForEach(std::function<void(TItem)> function)
-	{
+	{ //same as foreach just from tail to head
 		ListNode* node = _tail;
 		while (node != nullptr)
 		{
@@ -94,7 +103,7 @@ public:
 	}
 
 	~AllocatingList()
-	{
+	{// destructor  
 		while (!IsEmpty())
 		{
 			Remove();
