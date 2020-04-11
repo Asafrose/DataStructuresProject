@@ -14,7 +14,7 @@ int main()
 	cout << "Please enter source computer: ";
 	cin >> source;
 	
-	if (source > size -1)
+	if ((source > size -1)||(source<1))
 	{
 		cout << "no such computer " << source;
 		exit(1);

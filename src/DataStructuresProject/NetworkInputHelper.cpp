@@ -7,6 +7,10 @@ using namespace std;
 AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 {
 	cin >> size;
+	if(size<1)
+	{
+		cout << "not valid size ";
+	}
 	size++;
 	AllocatingList<int>* result = new AllocatingList<int>[size];
 
