@@ -2,68 +2,107 @@
 #define ALLOCATINGLIST_H
 #include <functional>
 
+#include "Iterator.h"
 
+// Allocating list class 
 template <class TItem>
 class AllocatingList
 {
-	// Allocating list template 
 private:
+	//Private nested class for list node
 	class ListNode
 	{
-		//Private class for node 
-	private:
-		TItem _data;
-		ListNode* _next;
-		ListNode* _prev;
-		friend AllocatingList<TItem>;
+	public:
+		TItem Data;
+		ListNode* Next;
+		ListNode* Prev;
 
-		ListNode(TItem data) : _data(data), _next(nullptr), _prev(nullptr)
+		ListNode(TItem data) : Data(data), Next(nullptr), Prev(nullptr)
 		{
 		}
 	};
+
+	
+	class AllocatingListIterator final : public Iterator<TItem>
+	{
+	private:
+		ListNode* _node;
+		bool _moveForward;
+		bool _isStarted;
+
+	public:
+		AllocatingListIterator(ListNode* node, bool moveForward) : _node(node), _moveForward(moveForward), _isStarted(false)
+		{
+		}
+		AllocatingListIterator(const AllocatingListIterator& other) = default;
+		~AllocatingListIterator() = default;
+
+		bool MoveNext() override
+		{
+			if (!_isStarted)
+			{
+				_isStarted = true;
+			}
+			else
+			{
+				_node =
+					_moveForward
+					? _node->Next
+					: _node->Prev;
+			}
+
+			return _node != nullptr;
+		}
+
+		TItem Current() override
+		{
+			return _node->Data;
+		}
+	};
+	
 
 	ListNode* _head;
 	ListNode* _tail;
 
 
 public:
+	//Ctr for new list
 	AllocatingList() : _head(nullptr), _tail(nullptr)
 	{
-		//Ctr for new list
 	}
 
+	//returns 'true' if list is empty
 	bool IsEmpty()
 	{
-		//returns 'true' if list is empty
 		return (_tail == nullptr);
 	}
 
+	//adds new item at the tail of the list and updates the tail
 	void Add(TItem item)
 	{
-		//adds new item at the tail of the list and updates the tail
-		ListNode* new_node = new ListNode(item);
+		ListNode* newNode = new ListNode(item);
 		if (_tail == nullptr)
 		{
-			_head = new_node;
-			_tail = new_node;
+			_head = newNode;
+			_tail = newNode;
 		}
 		else
 		{
-			new_node->_prev = _tail;
-			_tail->_next = new_node;
-			_tail = new_node;
+			newNode->Prev = _tail;
+			_tail->Next = newNode;
+			_tail = newNode;
 		}
 	}
 
+	//removes the tail item of the list and updates tail value
 	void Remove()
 	{
-		//removes the tail item of the list and updates tail value
 		ListNode* temp = _tail;
-		if (_tail->_prev != nullptr)
+		if (_tail->Prev != nullptr)
 		{
-			_tail->_prev->_next = nullptr;
-			_tail = _tail->_prev;
-			temp->_prev = nullptr;
+			_tail->Prev->Next = nullptr;
+			_tail = _tail->Prev;
+			temp->Prev = nullptr;
 		}
 		else
 		{
@@ -74,36 +113,20 @@ public:
 		delete temp;
 	}
 
+	// returns tail's data
 	TItem GetTail()
 	{
-		// returns tail's data
-		return _tail->_data;
+		return _tail->Data;
 	}
 
-	void ForEach(std::function<void(TItem)> function)
+	Iterator<TItem>* GetIterator(bool reversed = false)
 	{
-		// function receives a function object, Objects needs to get same data type as the list and return void.
-		// function goes over all list nodes and runs the function each time with the node data
-		ListNode* node = _head;
-		while (node != nullptr)
-		{
-			function(node->_data);
-			node = node->_next;
-		}
+		return new AllocatingListIterator(reversed ? _tail : _head, !reversed);
 	}
 
-	void ReversedForEach(std::function<void(TItem)> function)
-	{ //same as foreach just from tail to head
-		ListNode* node = _tail;
-		while (node != nullptr)
-		{
-			function(node->_data);
-			node = node->_prev;
-		}
-	}
-
+	// destructor  
 	~AllocatingList()
-	{// destructor  
+	{
 		while (!IsEmpty())
 		{
 			Remove();

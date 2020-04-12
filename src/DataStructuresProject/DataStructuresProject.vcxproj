@@ -153,6 +153,7 @@
     <ClCompile Include="RecursionTerminatorData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Iterator.h" />
     <ClInclude Include="RecurtionLine.h" />
     <ClInclude Include="NetworkInputHelper.h" />
     <ClInclude Include="PeersFinder.h" />

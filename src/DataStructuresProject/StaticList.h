@@ -5,6 +5,8 @@ template <class TItem>
 class StaticList
 {
 private:
+	static constexpr int ListEnd = -1;
+	
 	class ListNode
 	{
 	public:
@@ -12,7 +14,40 @@ private:
 		int Next;
 	};
 
-	static constexpr int ListEnd = -1;
+	class StaticListIterator final : public Iterator<TItem>
+	{
+		ListNode* _nodes;
+		int _index;
+		bool _isStarted;
+		
+	public:
+		StaticListIterator(ListNode* nodes, int index) : _nodes(nodes), _index(index), _isStarted(false)
+		{
+		}
+		StaticListIterator(const StaticListIterator& other) = default;
+		~StaticListIterator() = default;
+		
+		bool MoveNext() override
+		{
+			if (!_isStarted)
+			{
+				_isStarted = true;
+			}
+			else
+			{
+				_index = _nodes[_index].Next;
+			}
+
+			return _index != ListEnd;
+		};
+		
+		TItem Current() override
+		{
+			return _nodes[_index].Data;
+		}
+	};
+
+	
 
 	const int _physicalSize;
 	ListNode* const _nodes;
@@ -24,8 +59,9 @@ private:
 
 
 public:
+	// Creates empty static list of size 'size' 
 	StaticList(int size) : _physicalSize(size), _nodes(new ListNode[_physicalSize])
-	{// Creates empty static list of size 'size' 
+	{
 		_size = 0;
 		_head = ListEnd;
 		_tail = ListEnd;
@@ -53,6 +89,10 @@ public:
 		}
 	}
 
+	StaticList(StaticList&& other) : StaticList(other)
+	{
+	}
+
 	~StaticList()
 	{
 		delete[] _nodes;
@@ -77,14 +117,9 @@ public:
 		_nextLocation = newNextLocation;
 	}
 
-	void ForEach(void action(TItem item))
+	Iterator<TItem>* GetIterator()
 	{
-		int current = _head;
-		while (current != ListEnd)
-		{
-			action(_nodes[current].Data);
-			current = _nodes[current].Next;
-		}
+		return new StaticListIterator(_nodes, _head);
 	}
 };
 

@@ -2,13 +2,13 @@
 #include "RecursionTerminatorData.h"
 #include "Stack.h"
 
+// recursive function to find the peers of given computer 'source' on given network using bool array 'computerIdToVisitedMapping'
+// returning Static allocation list Peers
 void FindPeersRecursiveInternal(int source,
                                 AllocatingList<int>* network,
                                 bool* computerIdToIsVisitedMapping,
                                 StaticList<int>& peers)
 {
-	// recursive function to find the peers of given computer 'source' on given network using bool array 'computerIdToVisitedMapping'
-	// returning Static allocation list Peers
 	if (computerIdToIsVisitedMapping[source])
 	{
 		return;
@@ -17,18 +17,19 @@ void FindPeersRecursiveInternal(int source,
 	peers.Add(source);
 	computerIdToIsVisitedMapping[source] = true;
 
-	network[source].ForEach(
-		[&](int computer)
-		{
-			FindPeersRecursiveInternal(computer, network, computerIdToIsVisitedMapping, peers);
-		});
+	Iterator<int>* iterator = network[source].GetIterator();
+	while (iterator->MoveNext())
+	{
+		FindPeersRecursiveInternal(iterator->Current(), network, computerIdToIsVisitedMapping, peers);
+	}
+	delete iterator;
 }
 
+//function finds the Peers of given computer using recursive
+// recursive is done with "FindPeersRecursiveInternal"
+// returns Static Allocating list 
 StaticList<int> PeersFinder::FindPeersRecursive(int source, AllocatingList<int>* network, int computersCount)
 {
-	//function finds the Peers of given computer using recursive
-	// recursive is done with "FindPeersRecursiveInternal"
-	// returns Static Allocating list 
 	bool* computerIdToIsVisitedMapping = new bool[computersCount];
 	for (int i = 0; i < computersCount; ++i)
 	{
@@ -41,10 +42,10 @@ StaticList<int> PeersFinder::FindPeersRecursive(int source, AllocatingList<int>*
 	return peers;
 }
 
+// function finds Peers of given computer 'Source' on 'network' array with 'computersCount' amount of computers
+// returns Static Allocating list 
 StaticList<int> PeersFinder::FindPeersIterative(int source, AllocatingList<int>* network, int computersCount)
 {
-	// function finds Peers of given computer 'Source' on 'network' array with 'computersCount' amount of computers
-	// returns Static Allocating list 
 	bool* computerIdToIsVisitedMapping = new bool[computersCount];
 	for (int i = 0; i < computersCount; ++i)
 	{
@@ -65,11 +66,12 @@ StaticList<int> PeersFinder::FindPeersIterative(int source, AllocatingList<int>*
 				computerIdToIsVisitedMapping[current.GetSource()] = true;
 				stack.Push(RecursionTerminatorData(current.GetSource(), AfterRecursion));
 
-				network[current.GetSource()].ReversedForEach(
-					[&](int computer)
-					{
-						stack.Push(RecursionTerminatorData(computer, Start));
-					});
+				Iterator<int>* iterator = network[current.GetSource()].GetIterator(true);
+				while (iterator->MoveNext())
+				{
+					stack.Push(RecursionTerminatorData(iterator->Current(), Start));
+				}
+				delete iterator;
 			}
 		}
 	}

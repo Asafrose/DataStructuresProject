@@ -5,13 +5,19 @@
 
 using namespace std;
 
+void PrintPeers(StaticList<int> peers)
+{
+	Iterator<int>* iterator = peers.GetIterator();
+	iterator->ForEach([](int computer) { cout << " " << computer; });
+	delete iterator;
+}
+
 int main()
 {
 	int size;
 	AllocatingList<int>* network = NetworkInputHelper::GetNetwork(size);
 
 	int source;
-	cout << "Please enter source computer: ";
 	cin >> source;
 	
 	if ((source > size -1)||(source<1))
@@ -20,25 +26,9 @@ int main()
 		exit(1);
 	}
 	
-	cout << "RECURSIVE: The computers that are accessible from computer " << source << " are:";
-	PeersFinder::FindPeersRecursive(source, network, size).ForEach([](int computer) { cout << " " << computer; });
-
-	cout << endl << "ITERATIVE: The computers that are accessible from computer " << source << " are:";
-	PeersFinder::FindPeersIterative(source, network, size).ForEach([](int computer) { cout << " " << computer; });
+	PrintPeers(PeersFinder::FindPeersRecursive(source, network, size));
+	cout << endl;
+	PrintPeers(PeersFinder::FindPeersIterative(source, network, size));
 
     delete[] network;
 }
-
-/*
- *  AlloctingList
- *      AllocatingListNode
- *
- *  StaticList
- *      StaticListNode
- *
- *  Stack
- *      AllocatingList
- *
- *  ItemType
- *      
- */

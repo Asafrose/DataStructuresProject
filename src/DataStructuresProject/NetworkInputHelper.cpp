@@ -4,10 +4,10 @@
 
 using namespace std;
 
+// function receives a prt to int, creates an array of allocating list , updates the prt value with Array size and returns the array.
+// each item in the array holds the allocating list of connections with the corresponding computer as source
 AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 {
-	// function receives a prt to int, creates an array of allocating list , updates the prt value with Array size and returns the array.
-	// each item in the array holds the allocating list of connections with the corresponding computer as source
 	cin >> size;
 	if (size < 1)
 	{
@@ -24,6 +24,7 @@ AllocatingList<int>* NetworkInputHelper::GetNetwork(int& size)
 		cout << "not valid connections amount ";
 		exit(1);
 	}
+	
 	for (int i = 0; i < connectionsCount; ++i)
 	{
 		int sourceComputer;
