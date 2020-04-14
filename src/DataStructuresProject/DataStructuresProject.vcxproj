@@ -154,13 +154,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Iterator.h" />
-    <ClInclude Include="RecurtionLine.h" />
+    <ClInclude Include="RecurtionState.h" />
     <ClInclude Include="NetworkInputHelper.h" />
     <ClInclude Include="PeersFinder.h" />
     <ClInclude Include="RecursionTerminatorData.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticList.h" />
     <ClInclude Include="AlloctingList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

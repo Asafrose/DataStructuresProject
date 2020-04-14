@@ -47,11 +47,14 @@
     <ClInclude Include="PeersFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RecurtionLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Iterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RecurtionState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.txt" />
   </ItemGroup>
 </Project>

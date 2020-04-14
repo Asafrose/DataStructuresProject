@@ -1,12 +1,15 @@
 ﻿#ifndef STATICLIST_H
 #define STATICLIST_H
 
+//Class that implements list with static limit to the amount of items
 template <class TItem>
 class StaticList
 {
 private:
+	//Const to symbolize the end of the list
 	static constexpr int ListEnd = -1;
-	
+
+	//Private data structure to hold information for every node in the list
 	class ListNode
 	{
 	public:
@@ -14,19 +17,22 @@ private:
 		int Next;
 	};
 
+	//Implementation of Iterator for StaticList
 	class StaticListIterator final : public Iterator<TItem>
 	{
 		ListNode* _nodes;
 		int _index;
 		bool _isStarted;
-		
+
 	public:
 		StaticListIterator(ListNode* nodes, int index) : _nodes(nodes), _index(index), _isStarted(false)
 		{
 		}
+
 		StaticListIterator(const StaticListIterator& other) = default;
 		~StaticListIterator() = default;
-		
+
+		//move to the next item in the iteration
 		bool MoveNext() override
 		{
 			if (!_isStarted)
@@ -39,30 +45,25 @@ private:
 			}
 
 			return _index != ListEnd;
-		};
-		
+		}
+
+		//the current item in the iteration
 		TItem Current() override
 		{
 			return _nodes[_index].Data;
 		}
 	};
 
-	
-
 	const int _physicalSize;
 	ListNode* const _nodes;
 
-	int _size;
 	int _head;
 	int _tail;
 	int _nextLocation;
 
-
 public:
-	// Creates empty static list of size 'size' 
 	StaticList(int size) : _physicalSize(size), _nodes(new ListNode[_physicalSize])
 	{
-		_size = 0;
 		_head = ListEnd;
 		_tail = ListEnd;
 		_nextLocation = 0;
@@ -78,7 +79,6 @@ public:
 	StaticList(StaticList& other) :
 		_physicalSize(other._physicalSize),
 		_nodes(new ListNode[_physicalSize]),
-		_size(other._size),
 		_head(other._head),
 		_tail(other._tail),
 		_nextLocation(other._nextLocation)
@@ -98,6 +98,7 @@ public:
 		delete[] _nodes;
 	}
 
+	//Adds an item to the end of the list
 	void Add(TItem item)
 	{
 		_nodes[_nextLocation].Data = item;
@@ -117,6 +118,7 @@ public:
 		_nextLocation = newNextLocation;
 	}
 
+	//Gets the iterator for the static list
 	Iterator<TItem>* GetIterator()
 	{
 		return new StaticListIterator(_nodes, _head);

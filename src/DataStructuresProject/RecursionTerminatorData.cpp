@@ -1,20 +1,24 @@
 ﻿#include "RecursionTerminatorData.h"
 
-// ctor 
-RecursionTerminatorData::RecursionTerminatorData(int source, RecursionLine recursionLine) :
+RecursionTerminatorData::RecursionTerminatorData(int source, RecursionState recursionLine) :
 	_source(source),
 	_recursionLine(recursionLine)
 {
 }
 
-// returns source computer 
+RecursionTerminatorData::RecursionTerminatorData(const RecursionTerminatorData& other):
+	RecursionTerminatorData(other.GetSource(), other.GetRecursionLine())
+{
+}
+
+RecursionTerminatorData::~RecursionTerminatorData() = default;
+
 int RecursionTerminatorData::GetSource() const
 {
 	return _source;
 }
 
-// returns recursion line. 
-RecursionLine RecursionTerminatorData::GetRecursionLine() const
+RecursionState RecursionTerminatorData::GetRecursionLine() const
 {
 	return _recursionLine;
 }

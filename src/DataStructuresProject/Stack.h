@@ -2,26 +2,28 @@
 #define STACK_H
 #include "AlloctingList.h"
 
+//Class implementing the ADT stack with dynamic number of items
 template <class TItem>
 class Stack
 {
 private:
+	//The underlying list used to implement the stack
 	AllocatingList<TItem> _list;
 public:
 
-	//returns true is the stack is empty
+	//Returns weather there are no items in the stack
 	bool IsEmpty()
 	{
 		return _list.IsEmpty();
 	}
 
-	// adds item to top of the stack
+	//Adds item to top of the stack
 	void Push(TItem item)
 	{
 		_list.Add(item);
 	}
 
-	// removes and returns the top item in the stack
+	//Removes and returns the top item in the stack
 	TItem Pop()
 	{
 		TItem item = _list.GetTail();
@@ -29,7 +31,7 @@ public:
 		return item;
 	}
 
-	//returns the top item in the stack without removing it
+	//Returns the top item in the stack without removing it
 	TItem Top()
 	{
 		return _list.GetTail();

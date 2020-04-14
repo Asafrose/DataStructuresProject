@@ -2,8 +2,8 @@
 #include "RecursionTerminatorData.h"
 #include "Stack.h"
 
-// recursive function to find the peers of given computer 'source' on given network using bool array 'computerIdToVisitedMapping'
-// returning Static allocation list Peers
+//recursive function to find the peers of given computer 'source' on given network using bool array 'computerIdToIsVisitedMapping'
+//returning Static allocation list Peers
 void FindPeersRecursiveInternal(int source,
                                 AllocatingList<int>* network,
                                 bool* computerIdToIsVisitedMapping,
@@ -26,8 +26,7 @@ void FindPeersRecursiveInternal(int source,
 }
 
 //function finds the Peers of given computer using recursive
-// recursive is done with "FindPeersRecursiveInternal"
-// returns Static Allocating list 
+//recursion is done with "FindPeersRecursiveInternal"
 StaticList<int> PeersFinder::FindPeersRecursive(int source, AllocatingList<int>* network, int computersCount)
 {
 	bool* computerIdToIsVisitedMapping = new bool[computersCount];
@@ -42,8 +41,7 @@ StaticList<int> PeersFinder::FindPeersRecursive(int source, AllocatingList<int>*
 	return peers;
 }
 
-// function finds Peers of given computer 'Source' on 'network' array with 'computersCount' amount of computers
-// returns Static Allocating list 
+//function finds Peers of given computer 'Source' on 'network' array with 'computersCount' amount of computers
 StaticList<int> PeersFinder::FindPeersIterative(int source, AllocatingList<int>* network, int computersCount)
 {
 	bool* computerIdToIsVisitedMapping = new bool[computersCount];

@@ -4,7 +4,7 @@
 
 #include "Iterator.h"
 
-// Allocating list class 
+//Class that implements list with dynamic amount of items
 template <class TItem>
 class AllocatingList
 {
@@ -22,7 +22,7 @@ private:
 		}
 	};
 
-	
+	//Derived class from iterator to iterate over an allocating list
 	class AllocatingListIterator final : public Iterator<TItem>
 	{
 	private:
@@ -37,6 +37,7 @@ private:
 		AllocatingListIterator(const AllocatingListIterator& other) = default;
 		~AllocatingListIterator() = default;
 
+		//move to the next item in the iteration
 		bool MoveNext() override
 		{
 			if (!_isStarted)
@@ -54,6 +55,7 @@ private:
 			return _node != nullptr;
 		}
 
+		//the current item in the iteration
 		TItem Current() override
 		{
 			return _node->Data;
@@ -66,18 +68,17 @@ private:
 
 
 public:
-	//Ctr for new list
 	AllocatingList() : _head(nullptr), _tail(nullptr)
 	{
 	}
 
-	//returns 'true' if list is empty
+	//Returns weather there are no items in the list
 	bool IsEmpty()
 	{
 		return (_tail == nullptr);
 	}
 
-	//adds new item at the tail of the list and updates the tail
+	//Adds an item to the end of the list
 	void Add(TItem item)
 	{
 		ListNode* newNode = new ListNode(item);
@@ -94,7 +95,7 @@ public:
 		}
 	}
 
-	//removes the tail item of the list and updates tail value
+	//Removes an item from the end of the list
 	void Remove()
 	{
 		ListNode* temp = _tail;
@@ -113,18 +114,18 @@ public:
 		delete temp;
 	}
 
-	// returns tail's data
+	//Gets the last item of the list
 	TItem GetTail()
 	{
 		return _tail->Data;
 	}
 
+	//Gets the iterator for the allocating list
 	Iterator<TItem>* GetIterator(bool reversed = false)
 	{
 		return new AllocatingListIterator(reversed ? _tail : _head, !reversed);
 	}
 
-	// destructor  
 	~AllocatingList()
 	{
 		while (!IsEmpty())
