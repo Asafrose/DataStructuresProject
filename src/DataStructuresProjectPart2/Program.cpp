@@ -71,12 +71,16 @@ int main()
 		cin >> highestKey;
 
 		int naivePrint = NaivePrint(players, count, highestKey);
+		cout << "--------------------------------------" << endl;
 		int bstPrint = BSTPrint(players, count, highestKey);
+		cout << "--------------------------------------" << endl;
 		int printBySort = PrintBySort(players, count, highestKey);
 
-		cout << "NaivePrint: " << naivePrint << " comparisons";
-		cout << "BSTPrint: " << bstPrint << " comparisons";
-		cout << "PrintBySort: " << printBySort << " comparisons";
+		cout << "--------------------------------------" << endl;
+
+		cout << "NaivePrint: " << naivePrint << " comparisons" << endl;
+		cout << "BSTPrint: " << bstPrint << " comparisons" << endl;
+		cout << "PrintBySort: " << printBySort << " comparisons" << endl;
 	}
 	catch (Exception exception)
 	{

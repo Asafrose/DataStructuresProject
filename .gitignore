@@ -40,3 +40,4 @@
 *.DotSettings.user
 /src/x64/**/*
 /src/DataStructuresProject/x64/**/*
+*/**/Debug/**/*
