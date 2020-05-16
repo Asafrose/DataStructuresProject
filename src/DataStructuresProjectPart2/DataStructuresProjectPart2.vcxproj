@@ -147,7 +147,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DuplicateKeyException.cpp" />
+    <ClCompile Include="EqualityCompare.cpp" />
+    <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="KeyNotFoundException.cpp" />
+    <ClCompile Include="OrderedList.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="QuickSort.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="DuplicateKeyException.h" />
+    <ClInclude Include="EqualityCompare.h" />
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="KeyNotFoundException.h" />
+    <ClInclude Include="OrderedList.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="QuickSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
