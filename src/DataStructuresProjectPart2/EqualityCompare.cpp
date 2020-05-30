@@ -17,7 +17,7 @@ void EqualityComparer::Reset()
 	_count = 0;
 }
 
-int EqualityComparer::GetCount()
+int EqualityComparer::GetCount() const
 {
 	return _count;
 }

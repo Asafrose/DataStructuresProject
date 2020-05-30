@@ -7,22 +7,24 @@
 
 using namespace std;
 
+//adds players with key lower than highstKey to an ordered list, prints the list and returns comparison count
 int NaivePrint(Player* players[], int count, int highestKey)
 {
 	EqualityComparer::Instance.Reset();
 	OrderedList list;
 	for (int i = 0; i < count; ++i)
 	{
-		if (EqualityComparer::Instance.Compare(players[i]->GetId(),highestKey) < 0)
+		if (EqualityComparer::Instance.Compare(players[i]->GetId(), highestKey) < 0)
 		{
 			list.Add(players[i]);
 		}
 	}
-	
+
 	cout << list;
 	return EqualityComparer::Instance.GetCount();
 }
 
+//adds all players to a binary search tree, print tree values until highestKey in-order, returns comparison count
 int BSTPrint(Player* players[], int count, int highestKey)
 {
 	EqualityComparer::Instance.Reset();
@@ -36,12 +38,13 @@ int BSTPrint(Player* players[], int count, int highestKey)
 	return EqualityComparer::Instance.GetCount();
 }
 
+//sorts players array with QuickSort, prints players by order until reaching highestKey and returns comparison count
 int PrintBySort(Player* players[], int count, int highestKey)
 {
 	EqualityComparer::Instance.Reset();
 	QuickSort::Sort(players, count);
 
-	for (int i = 0; i < count && EqualityComparer::Instance.Compare(players[i]->GetId(),highestKey) < 0; ++i)
+	for (int i = 0; i < count && EqualityComparer::Instance.Compare(players[i]->GetId(), highestKey) < 0; ++i)
 	{
 		cout << *players[i] << endl;
 	}
@@ -49,10 +52,11 @@ int PrintBySort(Player* players[], int count, int highestKey)
 	return EqualityComparer::Instance.GetCount();
 }
 
+//get player array and count from user input
 Player** GetPlayers(int& count)
 {
 	cin >> count;
-	Player** result = new Player * [count];
+	Player** result = new Player*[count];
 	for (int i = 0; i < count; ++i)
 	{
 		result[i] = Player::CreatePlayerFromUserInput();
@@ -60,27 +64,30 @@ Player** GetPlayers(int& count)
 	return result;
 }
 
+//main function.
 int main()
 {
 	int count, highestKey;
 	Player** players = nullptr;
-	
+
 	try
 	{
 		players = GetPlayers(count);
 		cin >> highestKey;
 
-		int naivePrint = NaivePrint(players, count, highestKey);
+		const int naivePrint = NaivePrint(players, count, highestKey);
 		cout << "--------------------------------------" << endl;
-		int bstPrint = BSTPrint(players, count, highestKey);
+		const int bstPrint = BSTPrint(players, count, highestKey);
 		cout << "--------------------------------------" << endl;
-		int printBySort = PrintBySort(players, count, highestKey);
+		const int printBySort = PrintBySort(players, count, highestKey);
 
 		cout << "--------------------------------------" << endl;
 
 		cout << "NaivePrint: " << naivePrint << " comparisons" << endl;
 		cout << "BSTPrint: " << bstPrint << " comparisons" << endl;
 		cout << "PrintBySort: " << printBySort << " comparisons" << endl;
+
+		delete[] players;
 	}
 	catch (Exception exception)
 	{
@@ -88,10 +95,4 @@ int main()
 		delete[] players;
 		exit(1);
 	}
-	
 }
-
-// Player
-// OrderedList
-// BinarySearchTree
-// 

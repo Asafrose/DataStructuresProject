@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "Exception.h"
 
-class KeyNotFoundException : public Exception
+//exception indicating that a certain key was not found in a dictionary
+class KeyNotFoundException final : public Exception
 {
 public:
 	KeyNotFoundException();

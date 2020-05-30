@@ -9,24 +9,28 @@
 
 using namespace std;
 
+//Dictionary implementation using a binary search tree
 template <class TValue>
 class BinarySearchTree
 {
 private:
+	//Private TreeNode class
 	class TreeNode
 	{
 	private:
-		
-	public:
 		int _key;
 		TValue _value;
 		TreeNode* _left;
 		TreeNode* _right;
 
+	public:
+
+		//ctor
 		TreeNode(int key, TValue value) : _key(key), _value(value), _left(nullptr), _right(nullptr)
 		{
 		}
 
+		//Find value for given key.
 		TValue Find(int key) noexcept(false)
 		{
 			const int diff = EqualityComparer::Instance.Compare(key, _key);
@@ -40,7 +44,7 @@ private:
 				return _left->Find(key);
 			}
 
-			if (_right != nullptr)
+			if (diff > 0 && _right != nullptr)
 			{
 				return _right->Find(key);
 			}
@@ -48,13 +52,16 @@ private:
 			throw KeyNotFoundException();
 		}
 
+		//Adds a new child TreeNode recursively according to the TreeNode key.
 		void Add(TreeNode* newNode)
 		{
 			const int diff = EqualityComparer::Instance.Compare(newNode->_key, _key);
+
 			if (diff == 0)
 			{
 				throw DuplicateKeyException();
 			}
+
 			if (diff < 0)
 			{
 				if (_left == nullptr)
@@ -79,6 +86,7 @@ private:
 			}
 		}
 
+		//Clears the TreeNode and its childs recursively.
 		void MakeEmpty()
 		{
 			if (_left != nullptr)
@@ -92,22 +100,13 @@ private:
 			delete this;
 		}
 
-		TreeNode& operator=(TreeNode* other)
-		{
-			_key = other->_key;
-			_value = other->_value;
-			_left = other->_left;
-			_right = other->_right;
-
-			return *this;
-		}
-
+		//delete this node or a child node with a given key
 		void Delete(int key, TreeNode** pointerToThis)
 		{
-			int compare = EqualityComparer::Instance.Compare(key, _key);
+			const int compare = EqualityComparer::Instance.Compare(key, _key);
 			if (compare == 0)
 			{
-				if(_left==nullptr&&_right==nullptr)
+				if (_left == nullptr && _right == nullptr)
 				{
 					*pointerToThis = nullptr;
 					delete this;
@@ -130,7 +129,7 @@ private:
 					_left->Delete(max->_key, &_left);
 				}
 			}
-			else if(compare < 0)
+			else if (compare < 0)
 			{
 				_left->Delete(key, &_left);
 			}
@@ -140,23 +139,25 @@ private:
 			}
 		}
 
+		//Finds the child with biggest key.
 		TreeNode* FindMax()
 		{
-			if(_right!=nullptr)
+			if (_right != nullptr)
 			{
 				return _right->FindMax();
 			}
 			return this;
 		}
-		
+
+		//prints all child values where their Key is lower than given key
 		void PrintUntilKey(int key)
 		{
 			if (_left != nullptr)
 			{
 				_left->PrintUntilKey(key);
 			}
-			
-			if (EqualityComparer::Instance.Compare(key,_key) <= 0)
+
+			if (EqualityComparer::Instance.Compare(key, _key) <= 0)
 			{
 				return;
 			}
@@ -172,28 +173,36 @@ private:
 
 	TreeNode* _root;
 public:
+	//ctor
 	BinarySearchTree(): _root(nullptr)
 	{
 	}
 
+	//dtor
 	~BinarySearchTree()
 	{
 		MakeEmpty();
 	}
 
+	//Returns true if tree is empty
 	bool IsEmpty() const
 	{
 		return _root == nullptr;
 	}
 
+	//Clears the tree from data
 	void MakeEmpty()
 	{
-		if (_root != nullptr)
+		if (IsEmpty())
 		{
-			_root->MakeEmpty();
+			return;
 		}
+
+		_root->MakeEmpty();
+		_root = nullptr;
 	}
 
+	//Insert new key and value to tree
 	void Insert(int key, TValue value)
 	{
 		TreeNode* newNode = new TreeNode(key, value);
@@ -207,7 +216,7 @@ public:
 		}
 	}
 
-
+	//Delete key from tree
 	void Delete(int key)
 	{
 		if (IsEmpty())
@@ -218,6 +227,7 @@ public:
 		_root->Delete(key, &_root);
 	}
 
+	//Get value from tree by key
 	TValue Find(int key) const noexcept(false)
 	{
 		if (IsEmpty())
@@ -228,6 +238,7 @@ public:
 		return _root->Find(key);
 	}
 
+	//Returns true if a certain key exists
 	bool IsKeyExist(int key) const
 	{
 		try
@@ -241,12 +252,15 @@ public:
 		}
 	};
 
+	//Prints tree values in order until reaching a certain key
 	void PrintUntilKey(int key)
 	{
-		if (!IsEmpty())
+		if (IsEmpty())
 		{
-			_root->PrintUntilKey(key);
+			return;
 		}
+		
+		_root->PrintUntilKey(key);
 	}
 };
 #endif // BINARYSEARCHTREE_H

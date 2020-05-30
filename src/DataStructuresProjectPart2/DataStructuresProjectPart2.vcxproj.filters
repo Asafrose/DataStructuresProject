@@ -33,10 +33,10 @@
     <ClCompile Include="DuplicateKeyException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EqualityCompare.cpp">
+    <ClCompile Include="QuickSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QuickSort.cpp">
+    <ClCompile Include="EqualityCompare.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
